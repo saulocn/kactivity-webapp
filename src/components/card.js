@@ -3,7 +3,8 @@ import React from 'react'
 
 const Card = ({
     children,
-    cardName
+    cardName,
+    viewAllClick
 }) => (
     <div className="card events-card">
       <header className="card-header">
@@ -22,7 +23,7 @@ const Card = ({
         </div>
       </div>
       <footer className="card-footer">
-        <a href="#" className="card-footer-item">View All</a>
+        <a href="#" className="card-footer-item" onClick={viewAllClick}>View All</a>
       </footer>
     </div>
 )

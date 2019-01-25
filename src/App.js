@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import AppContent from './app-content';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
     constructor() {
@@ -89,8 +90,8 @@ class App extends Component {
                 title: 'Teste 3',
                 subtitle: 'Card de teste 3'
             }, {
-                title: 'Teste 4',
-                subtitle: 'Cad de teste 4'
+                title: '0',
+                subtitle: 'Eventos'
             }],
             headerNav: {
                 links: [{
@@ -141,9 +142,65 @@ class App extends Component {
             }, ]
         }
     }
+
+    loadEvents() {
+        return e => {
+            axios.get(`https://kactivity-1.firebaseio.com/eventos.json`)
+                .then(content => {
+                    let evento = {
+                        nome: content.data
+                    }
+                    let eventos = this.state.events
+                    eventos.push(evento)
+                    this.setState({
+                        events: eventos,
+                        infoTiles: this.state.infoTiles.map(
+                            item => {
+                                if (item.subtitle === 'Eventos')
+                                    return {
+                                        subtitle: item.subtitle,
+                                        title: eventos.length
+                                    }
+                                return item
+                            }
+                        )
+                    })
+                })
+        }
+    }
+
+    saveEvent() {
+        return e => {
+            axios.get(`https://kactivity-1.firebaseio.com/eventos.json`)
+                .then(content => {
+                    let evento = {
+                        nome: content.data
+                    }
+                    let eventos = this.state.events
+                    eventos.push(evento)
+                    this.setState({
+                        events: eventos,
+                        infoTiles: this.state.infoTiles.map(
+                            item => {
+                                if (item.subtitle === 'Eventos')
+                                    return {
+                                        subtitle: item.subtitle,
+                                        title: eventos.length
+                                    }
+                                return item
+                            }
+                        )
+                    })
+                })
+        }
+    }
     render() {
         return (
-            <AppContent {... this.state } />
+            <AppContent 
+                {... this.state } 
+                loadEvents={this.loadEvents()} 
+                saveEvent={this.saveEvent()}
+            />
         );
     }
 }

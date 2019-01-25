@@ -1,6 +1,4 @@
-import React, {
-    Component
-} from 'react';
+import React from 'react';
 import HeaderNav from './components/header-nav'
 import SideNav from './components/side-nav'
 import Breadcrumb from './home/breadcrumb';
@@ -12,6 +10,7 @@ import UserSearch from './home/user-search';
 
 import './App.css';
 import EventCard from './home/event-card';
+import EventForm from './home/event-form';
 
 
 
@@ -20,7 +19,8 @@ const AppContent = ({
     sideNav,
     breadcrumb,
     infoTiles,
-    events
+    events,
+    loadEvents
 }) => (
 <div className="App">
   <HeaderNav links={headerNav.links} />
@@ -35,11 +35,12 @@ const AppContent = ({
         <InfoLittleCards infos={infoTiles} />
         <div className="columns">
           <div className="column is-6">
-            <EventCard events={events} />
+            <EventCard events={events} loadEvents={loadEvents}  />
           </div>
           <div className="column is-6">
             <InventorySearch />
             <UserSearch />
+            <EventForm title="Eventos" />
           </div>
         </div>
       </div>
